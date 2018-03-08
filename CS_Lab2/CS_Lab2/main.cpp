@@ -12,9 +12,10 @@ class TreeType {
 public:
 	TreeType();
 	void insert(node*, int);
-	void inorder(node*);
 	void deleteNode(node*, int);
-	node* FindMin(node*);
+	void inorder(node*);
+	void preorder(node*);
+	void postorder(node*);
 	node* root;
 
 };
@@ -33,21 +34,22 @@ int main() {
 	BinarySearch.insert(BinarySearch.root, 6);
 	BinarySearch.insert(BinarySearch.root, 8);
 
-
-	printf("HEllO \n");
-
+	cout << "Inorder Traversal: ";
 	BinarySearch.inorder(BinarySearch.root);
-	
 	cout << endl;
 
 	BinarySearch.deleteNode(BinarySearch.root, 10);
 
+	cout << "Inorder Traversal: ";
 	BinarySearch.inorder(BinarySearch.root);
-
 	cout << endl;
-	BinarySearch.deleteNode(BinarySearch.root, 20);
 
-	BinarySearch.inorder(BinarySearch.root);
+	cout << "Preorder Traversal: ";
+	BinarySearch.preorder(BinarySearch.root);
+	cout << endl;
+
+	cout << "Postorder Traversal: ";
+	BinarySearch.postorder(BinarySearch.root);
 	cout << endl;
 	return 0;
 }
@@ -88,7 +90,7 @@ void TreeType::insert(node* trunk, int branch) {
 
 void TreeType::inorder(node* trunk) {
 	if (root == NULL) {
-		cout << "This BST is empty. There is nothing to inorder traverse. " << endl;
+		cout << "This BST is empty. There is nothing to inorderly traverse. " << endl;
 		return;
 	}
 	else {
@@ -96,6 +98,33 @@ void TreeType::inorder(node* trunk) {
 			inorder(trunk->left);
 			cout << trunk->key << " ";
 			inorder(trunk->right);
+		}
+	}
+}
+
+void TreeType::preorder(node* trunk) {
+	if (root == NULL) {
+		cout << "This BST is empty. There is nothing to preorderly traverse. " << endl;
+		return;
+	}
+	else {
+		if (trunk != NULL) {
+			cout << trunk->key << " ";
+			preorder(trunk->left);
+			preorder(trunk->right);
+		}
+	}
+}
+void TreeType::postorder(node* trunk) {
+	if (root == NULL) {
+		cout << "This BST is empty. There is nothing to postorderly traverse. " << endl;
+		return;
+	}
+	else {
+		if (trunk != NULL) {
+			postorder(trunk->left);
+			postorder(trunk->right);
+			cout << trunk->key << " ";
 		}
 	}
 }
@@ -217,3 +246,13 @@ void TreeType::deleteNode(node* trunk, int branch) {
 		return;
 	}
 }
+/*
+
+Inorder Traversal: 6 8 10 11 12 20 22 30 45
+10 has been deleted from the tree. :)
+Inorder Traversal: 6 8 11 12 20 22 30 45
+Preorder Traversal: 12 11 6 8 20 30 22 45
+Postorder Traversal: 8 6 11 22 45 30 20 12
+Press any key to continue . . .
+
+*/
